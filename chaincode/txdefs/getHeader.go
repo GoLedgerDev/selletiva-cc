@@ -3,7 +3,7 @@ package txdefs
 import (
 	"encoding/json"
 
-	"github.com/goledgerdev/cc-tools-demo/chaincode/header"
+	"github.com/goledgerdev/selletiva-cc/chaincode/header"
 
 	"github.com/goledgerdev/cc-tools/errors"
 	tx "github.com/goledgerdev/cc-tools/transactions"

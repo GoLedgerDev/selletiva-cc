@@ -5,10 +5,10 @@ import (
 	"log"
 	"time"
 
-	"github.com/goledgerdev/cc-tools-demo/chaincode/datatypes"
-	"github.com/goledgerdev/cc-tools-demo/chaincode/header"
 	"github.com/goledgerdev/cc-tools/assets"
 	tx "github.com/goledgerdev/cc-tools/transactions"
+	"github.com/goledgerdev/selletiva-cc/chaincode/datatypes"
+	"github.com/goledgerdev/selletiva-cc/chaincode/header"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"

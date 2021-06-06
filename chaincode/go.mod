@@ -1,4 +1,4 @@
-module github.com/goledgerdev/cc-tools-demo/chaincode
+module github.com/goledgerdev/selletiva-cc/chaincode
 
 go 1.14
 
