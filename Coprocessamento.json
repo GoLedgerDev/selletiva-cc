@@ -143,7 +143,7 @@
                 {
                     "tag": "gerador",
                     "label": "Gerador",
-                    "required": true,
+                    "required": false,
                     "isKey": false,
                     "readOnly": false,
                     "dataType": "number"
@@ -283,6 +283,30 @@
                     "isKey": false,
                     "readOnly": false,
                     "dataType": "number"
+                },
+                {
+                    "tag": "categoria_nome",
+                    "label": "Nome da Categoria",
+                    "required": true,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
+                },
+                {
+                    "tag": "tipo_nome",
+                    "label": "Nome do Tipo",
+                    "required": true,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
+                },
+                {
+                    "tag": "status",
+                    "label": "Status",
+                    "required": false,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
                 }
             ]
         },
@@ -457,6 +481,46 @@
                     "isKey": false,
                     "readOnly": false,
                     "dataType": "number"
+                },
+                {
+                    "tag": "categoria_nome",
+                    "label": "Nome da Categoria",
+                    "required": false,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
+                },
+                {
+                    "tag": "tipo_nome",
+                    "label": "Nome do Tipo",
+                    "required": false,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
+                },
+                {
+                    "tag": "status",
+                    "label": "Status",
+                    "required": false,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
+                },
+                {
+                    "tag": "campo_controle",
+                    "label": "Campo Controle",
+                    "required": false,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
+                },
+                {
+                    "tag": "campo_saida",
+                    "label": "Campo Saida",
+                    "required": false,
+                    "isKey": false,
+                    "readOnly": false,
+                    "dataType": "string"
                 }
             ]
         }
