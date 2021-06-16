@@ -8,7 +8,7 @@
         "channelName": "mainchannel",
         "chaincodes": [
           {
-            "chaincodeName": "selletiva-cc",
+            "chaincodeName": "template-cc",
             "init": "",
             "endorsement": {
               "identities": [

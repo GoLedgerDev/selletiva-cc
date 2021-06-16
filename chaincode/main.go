@@ -5,10 +5,11 @@ import (
 	"log"
 	"time"
 
+	"github.com/goledgerdev/template-cc/chaincode/assettypes"
+	"github.com/goledgerdev/template-cc/chaincode/datatypes"
+	"github.com/goledgerdev/template-cc/chaincode/header"
 	"github.com/goledgerdev/cc-tools/assets"
 	tx "github.com/goledgerdev/cc-tools/transactions"
-	"github.com/goledgerdev/selletiva-cc/chaincode/datatypes"
-	"github.com/goledgerdev/selletiva-cc/chaincode/header"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
@@ -17,9 +18,15 @@ import (
 // main function starts up the chaincode in the container during instantiate
 func main() {
 	log.Printf("Starting chaincode %s version %s\n", header.Name, header.Version)
+
 	tx.InitTxList(txList)
-	assets.CustomDataTypes(datatypes.CustomDataTypes)
-	assets.InitAssetList(assetTypeList)
+
+	err := assets.CustomDataTypes(datatypes.CustomDataTypes)
+	if err != nil {
+		fmt.Printf("Error injecting custom data types: %s", err)
+		return
+	}
+	assets.InitAssetList(append(assetTypeList, assettypes.CustomAssets...))
 	if err := shim.Start(new(CCDemo)); err != nil {
 		fmt.Printf("Error starting chaincode: %s", err)
 	}

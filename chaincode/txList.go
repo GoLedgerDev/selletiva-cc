@@ -1,7 +1,7 @@
 package main
 
 import (
-	txdefs "github.com/goledgerdev/selletiva-cc/chaincode/txdefs"
+	txdefs "github.com/goledgerdev/template-cc/chaincode/txdefs"
 
 	tx "github.com/goledgerdev/cc-tools/transactions"
 )

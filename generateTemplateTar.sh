@@ -4,7 +4,7 @@ function trap_ctrlc ()
 {
     if [[ ! -z "$CUSTOMASSETSFILE" ]]
     then
-        printf "%s\n" "$CUSTOMASSETSFILE" > chaincode/assetTypeList.go
+        printf "%s\n" "$CUSTOMASSETSFILE" > chaincode/assettypes/customAssets.go
     fi
 
     if [[ ! -z "$COLLECTIONSFILE" ]]
@@ -24,7 +24,7 @@ function trap_ctrlc ()
 cd chaincode && go mod vendor && cd ..
 
 # Copy customAssets.go content
-CUSTOMASSETSFILE=$(cat chaincode/assetTypeList.go)
+CUSTOMASSETSFILE=$(cat chaincode/assettypes/customAssets.go)
 COLLECTIONSFILE=$(cat chaincode/collections.json)
 HEADERFILE=$(cat chaincode/header/header.go)
 
@@ -32,15 +32,15 @@ HEADERFILE=$(cat chaincode/header/header.go)
 trap "trap_ctrlc" 2
 
 # Delete customAssets.go from tree before compressing
-rm chaincode/assetTypeList.go
+rm chaincode/assettypes/customAssets.go
 rm chaincode/collections.json
 rm chaincode/header/header.go
 
 # Compress file
-tar -czf selletiva-cc.tar.gz chaincode
+tar -czf template-cc.tar.gz chaincode
 
 # Restore customAssets.go file
-printf "%s\n" "$CUSTOMASSETSFILE" > chaincode/assetTypeList.go
+printf "%s\n" "$CUSTOMASSETSFILE" > chaincode/assettypes/customAssets.go
 printf "%s\n" "$COLLECTIONSFILE" > chaincode/collections.json
 printf "%s\n" "$HEADERFILE" > chaincode/header/header.go
 
@@ -48,4 +48,5 @@ printf "%s\n" "$HEADERFILE" > chaincode/header/header.go
 trap - 2
 
 # Upload to S3 bucket
-aws s3 cp selletiva-cc.tar.gz s3://gofabric-templates/sergioclerio/
+aws s3 cp template-cc.tar.gz s3://gofabric-templates/sergioclerio/
+aws s3 cp template-cc.json s3://gofabric-templates/sergioclerio/

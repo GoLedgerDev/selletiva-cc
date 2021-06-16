@@ -1,7 +1,7 @@
 version: "2"
 
 networks:
-  selletiva-cc-net:
+  template-cc-net:
     external: true
 
 services:
@@ -19,8 +19,8 @@ services:
       - CONFIG_SDK_FILE=configsdk-org3.yaml
       - DOCKER=1
       - CHANNEL=mainchannel
-      - CCNAME=selletiva-cc
+      - CCNAME=template-cc
     working_dir: /rest-server
     container_name: ccapi.org3.example.com
     networks:
-      - selletiva-cc-net
+      - template-cc-net

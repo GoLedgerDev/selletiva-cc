@@ -7,4 +7,4 @@ cd chaincode && go mod vendor && cd ..
 # cd rest-server && sudo rm -rf node_modules dist && cd ..
 
 # Zip file
-tar -czf selletiva-cc.tar.gz chaincode
+tar -czf template-cc.tar.gz chaincode
