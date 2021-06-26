@@ -11,4 +11,7 @@ var txList = []tx.Transaction{
 	txdefs.EditarSolicitacao,
 	txdefs.CriarSolicitacao,
 	txdefs.CriarSaida,
+	txdefs.EditarSaida,
+	txdefs.CriarEntrada,
+	txdefs.EditarEntrada,
 }

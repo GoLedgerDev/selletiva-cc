@@ -10,20 +10,38 @@ import (
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
 
-var EditarSolicitacao = tx.Transaction{
-	Tag:         "editarSolicitacao",
-	Label:       "Editar Solicitacao",
+var EditarSaida = tx.Transaction{
+	Tag:         "editarSaida",
+	Label:       "Editar Saida",
 	Description: "",
 	Method:      "POST",
 	//Callers:     []string{`org\dMSP`},
 
 	Args: []tx.Argument{
 		{
-			Tag:         "solicitacao",
-			Label:       "Solicitacao",
-			Description: "Solicitação",
-			DataType:    "solicitacao",
+			Tag:         "saida",
+			Label:       "Saída",
+			Description: "Saída",
+			DataType:    "saidas",
 			Required:    true,
+		},
+		{
+			Tag:         "cod_saida",
+			Label:       "Código Saída",
+			Description: "Código Saída",
+			DataType:    "number",
+		},
+		{
+			Tag:         "corporativo",
+			Label:       "Corporativo",
+			Description: "Corporativo",
+			DataType:    "string",
+		},
+		{
+			Tag:         "entidade",
+			Label:       "Entidade Gerenciadora",
+			Description: "Entidade Gerenciadora",
+			DataType:    "string",
 		},
 		{
 			Tag:         "categoria",
@@ -50,34 +68,71 @@ var EditarSolicitacao = tx.Transaction{
 			DataType:    "number",
 		},
 		{
-			Tag:         "observacao",
-			Label:       "Observacao",
-			Description: "Observacao",
+			Tag:         "unidade",
+			Label:       "Unidade",
+			Description: "Unidade",
 			DataType:    "string",
 		},
 		{
-			Tag:         "dta_solicita",
-			Label:       "Data Solicitacao",
-			Description: "Data Solicitacao",
-			DataType:    "datetime",
-		},
-		{
-			Tag:         "peso_real",
-			Label:       "Peso Real",
-			Description: "Peso Real",
-			DataType:    "number",
-		},
-		{
-			Tag:         "dta_recebimento",
-			Label:       "Data Recebimento",
-			Description: "Data Recebimento",
-			DataType:    "datetime",
-		},
-		{
-			Tag:         "status",
-			Label:       "Status",
-			Description: "Status",
+			Tag:         "gerador",
+			Label:       "Gerador",
+			Description: "Gerador",
 			DataType:    "string",
+		},
+		{
+			Tag:         "destinatario",
+			Label:       "Destinatario",
+			Description: "Destinatario",
+			DataType:    "string",
+		},
+		{
+			Tag:         "acondicionamento",
+			Label:       "Acondicionamento",
+			Description: "Acondicionamento",
+			DataType:    "string",
+		},
+		{
+			Tag:         "mtr",
+			Label:       "MTR",
+			Description: "MTR",
+			DataType:    "string",
+		},
+		{
+			Tag:         "origem",
+			Label:       "Origem",
+			Description: "Origem",
+			DataType:    "string",
+		},
+		{
+			Tag:         "lacre",
+			Label:       "Lacre",
+			Description: "Lacre",
+			DataType:    "string",
+		},
+		{
+			Tag:         "lote",
+			Label:       "Lote",
+			Description: "Lote",
+			DataType:    "string",
+		},
+		{
+			Tag:         "veiculo",
+			Label:       "Veiculo",
+			Description: "Veiculo",
+			DataType:    "string",
+		},
+		{
+			Tag:         "motorista",
+			Label:       "Motorista",
+			Description: "Motorista",
+			DataType:    "string",
+		},
+		{
+			Tag:         "data_registro",
+			Label:       "Data de Registro de Saída",
+			Description: "Data de Registro de Saída",
+			DataType:    "datetime",
+			Required:    true,
 		},
 		{
 			Tag:         "distancia_app",
@@ -93,8 +148,8 @@ var EditarSolicitacao = tx.Transaction{
 		},
 		{
 			Tag:         "regra1_cliente_blockchain",
-			Label:       "Regra Data Solicitação Blockchain",
-			Description: "Se esta regra será utilizada ou não para: Data Solicitação",
+			Label:       "Regra Data Registro de Saída Blockchain",
+			Description: "Se esta regra será utilizada ou não para: Data Registro",
 			DataType:    "boolean",
 			Required:    true,
 		},
@@ -171,19 +226,28 @@ var EditarSolicitacao = tx.Transaction{
 		},
 	},
 	Routine: func(stub shim.ChaincodeStubInterface, req map[string]interface{}) ([]byte, errors.ICCError) {
-		solicitacaoKey, ok := req["solicitacao"].(assets.Key)
+		saidaKey, ok := req["saida"].(assets.Key)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter solicitacao")
+			return nil, errors.WrapError(nil, "missing parameter saida")
 		}
+		cod_saida, hasCodSaida := req["cod_saida"].(float64)
+		corporativo, hasCorporativo := req["corporativo"].(string)
+		entidade, hasEntidade := req["entidade"].(string)
 		categoria, hasCategoria := req["categoria"].(float64)
 		tipo, hasTipo := req["tipo"].(float64)
 		quantidade, hasQuantidade := req["quantidade"].(float64)
+		unidade, hasUnidade := req["unidade"].(string)
+		gerador, hasGerador := req["gerador"].(string)
 		transportadora, hasTransportadora := req["transportadora"].(float64)
-		observacao, hasObservacao := req["observacao"].(string)
-		dta_solicita, hasDataSolicitacao := req["dta_solicita"].(time.Time)
-		peso_real, hasPesoReal := req["peso_real"].(float64)
-		dta_recebimento, hasDataRecebimento := req["dta_recebimento"].(time.Time)
-		status, hasStatus := req["status"].(string)
+		destinatario, hasDestinatario := req["destinatario"].(string)
+		acondicionamento, hasACondicionamento := req["acondicionamento"].(string)
+		mtr, hasMtr := req["mtr"].(string)
+		origem, hasOrigem := req["origem"].(string)
+		lacre, hasLacre := req["lacre"].(string)
+		lote, hasLote := req["lote"].(string)
+		veiculo, hasVeiculo := req["veiculo"].(string)
+		motorista, hasMotorista := req["motorista"].(string)
+		data_registro, hasDataRegistro := req["data_registro"].(time.Time)
 		distancia_app, hasDistanciaApp := req["distancia_app"].(float64)
 		dias_evidencia_app, hasDiasEvidenciaApp := req["dias_evidencia_app"].(float64)
 
@@ -227,25 +291,22 @@ var EditarSolicitacao = tx.Transaction{
 		campo_saida := ""
 		campo_controle := false
 
-		solicitacaoAsset, err := solicitacaoKey.Get(stub)
+		saidaAsset, err := saidaKey.Get(stub)
 		if err != nil {
-			return nil, errors.WrapError(err, "failed to get solicitacao from the ledger")
-		}
-		solicitacao := (map[string]interface{})(*solicitacaoAsset)
-		if solicitacao["@assetType"].(string) != "solicitacao" {
-			return nil, errors.WrapError(err, "failed to get solicitacao from the ledger")
+			return nil, errors.WrapError(err, "failed to get saida from the ledger")
 		}
 
-		if solicitacao["@assetType"] != "solicitacao" {
-			return nil, errors.WrapError(err, "tipo do asset deve ser solicitacao")
+		saida := (map[string]interface{})(*saidaAsset)
+		if saida["@assetType"].(string) != "saidas" {
+			return nil, errors.WrapError(err, "failed to get saida from the ledger")
 		}
 
 		if regra1_cliente_blockchain {
 			if !hasDataAtual {
 				return nil, errors.WrapError(nil, "Verificação de regra 1 exige o campo data_atual")
 			}
-			if dta_solicita.Before(data_atual) {
-				campo_saida += "Regra1:dta_solicitacao "
+			if data_registro.Before(data_atual) {
+				campo_saida += "Regra1:data_registro"
 				campo_controle = true
 			}
 		}
@@ -313,60 +374,99 @@ var EditarSolicitacao = tx.Transaction{
 		}
 
 		if hasCategoria {
-			solicitacao["categoria"] = categoria
+			saida["categoria"] = categoria
 		}
 		if hasTipo {
-			solicitacao["tipo"] = tipo
+			saida["tipo"] = tipo
 		}
 		if hasQuantidade {
-			solicitacao["quantidade"] = quantidade
+			saida["quantidade"] = quantidade
 		}
 		if hasTransportadora {
-			solicitacao["transportadora"] = transportadora
+			saida["transportadora"] = transportadora
 		}
-		if hasDataSolicitacao {
-			solicitacao["dta_solicita"] = dta_solicita.Format(time.RFC3339)
+		if hasDataRegistro {
+			saida["data_registro"] = data_registro.Format(time.RFC3339)
 		}
-		if hasPesoReal {
-			solicitacao["peso_real"] = peso_real
-		}
-		if hasObservacao {
-			solicitacao["observacao"] = observacao
-		}
-		if hasDataRecebimento {
-			solicitacao["dta_recebimento"] = dta_recebimento.Format(time.RFC3339)
-		}
-		if hasStatus {
-			solicitacao["status"] = status
-		}
+
 		if hasDistanciaApp {
-			solicitacao["distancia_app"] = distancia_app
+			saida["distancia_app"] = distancia_app
 		}
 		if hasDiasEvidenciaApp {
-			solicitacao["dias_evidencia_app"] = dias_evidencia_app
+			saida["dias_evidencia_app"] = dias_evidencia_app
 		}
 
-		solicitacao["campo_controle"] = campo_controle
-		solicitacao["campo_saida"] = campo_saida
+		if hasCodSaida {
+			saida["cod_saida"] = cod_saida
+		}
 
-		solicitacaoJSON, nerr := json.Marshal(solicitacao)
+		if hasCorporativo {
+			saida["corporativo"] = corporativo
+		}
+		if hasEntidade {
+			saida["entidade"] = entidade
+		}
+		if hasUnidade {
+			saida["unidade"] = unidade
+		}
+
+		if hasGerador {
+			saida["gerador"] = gerador
+		}
+
+		if hasDestinatario {
+			saida["destinatario"] = destinatario
+		}
+
+		if hasACondicionamento {
+			saida["acondicionamento"] = acondicionamento
+		}
+
+		if hasMtr {
+			saida["mtr"] = mtr
+		}
+
+		if hasOrigem {
+			saida["origem"] = origem
+		}
+
+		if hasLacre {
+			saida["lacre"] = lacre
+		}
+
+		if hasLote {
+			saida["lote"] = lote
+		}
+
+		if hasVeiculo {
+			saida["veiculo"] = veiculo
+		}
+
+		if hasMotorista {
+			saida["motorista"] = motorista
+		}
+
+		saida["campo_controle"] = campo_controle
+		saida["campo_saida"] = campo_saida
+
+		saidaJSON, nerr := json.Marshal(saida)
 		if nerr != nil {
 			return nil, errors.WrapError(nil, "failed to encode asset to JSON format")
 		}
 
-		solicitacaoEdit, err := assets.NewAsset(solicitacao)
+		saidaEdit, err := assets.NewAsset(saida)
 
-		_, err = solicitacaoAsset.Put(stub)
+		_, err = saidaEdit.Put(stub)
 		if err != nil {
-			return nil, errors.WrapError(err, "Error saving solicitacao on blockchain")
+			return nil, errors.WrapError(err, "Error saving asset on blockchain")
 		}
 
 		// Marshal asset back to JSON format
-		solicitacaoJSON, nerr = json.Marshal(solicitacaoEdit)
+		saidaJSON, nerr = json.Marshal(saidaEdit)
 		if nerr != nil {
 			return nil, errors.WrapError(nil, "failed to encode asset to JSON format")
 		}
 
-		return solicitacaoJSON, nil
+		return saidaJSON, nil
 	},
 }

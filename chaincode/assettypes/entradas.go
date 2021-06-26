@@ -17,8 +17,8 @@ var Entradas = assets.AssetType{
 			DataType: "number",
 		},
 		{
-			Tag:      "cod_saida",
-			Label:    "Código Saída",
+			Tag:      "cod_entrada",
+			Label:    "Código Entrada",
 			DataType: "number",
 		},
 		{
@@ -103,8 +103,13 @@ var Entradas = assets.AssetType{
 		},
 		{
 			Tag:      "data_registro",
-			Label:    "Data do registro de Saida",
+			Label:    "Data do registro de Entrada",
 			DataType: "datetime",
+		},
+		{
+			Tag:      "ent_sai",
+			Label:    "Controle de Entradas",
+			DataType: "boolean",
 		},
 		{
 			Tag:      "dias_evidencia_app",
@@ -115,6 +120,21 @@ var Entradas = assets.AssetType{
 			Tag:      "distancia_app",
 			Label:    "Distancia APP",
 			DataType: "number",
+		},
+		{
+			Tag:      "categoria_nome",
+			Label:    "Nome da Categoria",
+			DataType: "string",
+		},
+		{
+			Tag:      "tipo_nome",
+			Label:    "Nome do Tipo",
+			DataType: "string",
+		},
+		{
+			Tag:      "status",
+			Label:    "Status",
+			DataType: "string",
 		},
 		{
 			Tag:      "campo_saida",

@@ -10,38 +10,62 @@ import (
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
 
-var EditarSolicitacao = tx.Transaction{
-	Tag:         "editarSolicitacao",
-	Label:       "Editar Solicitacao",
-	Description: "",
+var CriarEntrada = tx.Transaction{
+	Tag:         "criarEntrada",
+	Label:       "Criar Entrada",
+	Description: "Criar Entrada",
 	Method:      "POST",
 	//Callers:     []string{`org\dMSP`},
 
 	Args: []tx.Argument{
 		{
-			Tag:         "solicitacao",
-			Label:       "Solicitacao",
-			Description: "Solicitação",
-			DataType:    "solicitacao",
+			Tag:         "id",
+			Label:       "ID",
+			Description: "id",
+			DataType:    "number",
 			Required:    true,
+		},
+		{
+			Tag:         "cod_entrada",
+			Label:       "Código Entrada",
+			Description: "Código Entrada",
+			Required:    true,
+			DataType:    "number",
+		},
+		{
+			Tag:         "corporativo",
+			Label:       "Corporativo",
+			Description: "Corporativo",
+			Required:    true,
+			DataType:    "string",
+		},
+		{
+			Tag:         "entidade",
+			Label:       "Entidade Gerenciadora",
+			Description: "Entidade Gerenciadora",
+			Required:    true,
+			DataType:    "string",
 		},
 		{
 			Tag:         "categoria",
 			Label:       "Categoria",
 			Description: "Categoria",
 			DataType:    "number",
+			Required:    true,
 		},
 		{
 			Tag:         "tipo",
 			Label:       "Tipo",
 			Description: "Tipo",
 			DataType:    "number",
+			Required:    true,
 		},
 		{
 			Tag:         "quantidade",
 			Label:       "Quantidade",
 			Description: "Quantidade",
 			DataType:    "number",
+			Required:    true,
 		},
 		{
 			Tag:         "transportadora",
@@ -50,34 +74,70 @@ var EditarSolicitacao = tx.Transaction{
 			DataType:    "number",
 		},
 		{
-			Tag:         "observacao",
-			Label:       "Observacao",
-			Description: "Observacao",
+			Tag:         "unidade",
+			Label:       "Unidade",
+			Description: "Unidade",
 			DataType:    "string",
 		},
 		{
-			Tag:         "dta_solicita",
-			Label:       "Data Solicitacao",
-			Description: "Data Solicitacao",
-			DataType:    "datetime",
-		},
-		{
-			Tag:         "peso_real",
-			Label:       "Peso Real",
-			Description: "Peso Real",
-			DataType:    "number",
-		},
-		{
-			Tag:         "dta_recebimento",
-			Label:       "Data Recebimento",
-			Description: "Data Recebimento",
-			DataType:    "datetime",
-		},
-		{
-			Tag:         "status",
-			Label:       "Status",
-			Description: "Status",
+			Tag:         "gerador",
+			Label:       "Gerador",
+			Description: "Gerador",
 			DataType:    "string",
+		},
+		{
+			Tag:         "destinatario",
+			Label:       "Destinatario",
+			Description: "Destinatario",
+			DataType:    "string",
+		},
+		{
+			Tag:         "acondicionamento",
+			Label:       "Acondicionamento",
+			Description: "Acondicionamento",
+			DataType:    "string",
+		},
+		{
+			Tag:         "mtr",
+			Label:       "MTR",
+			Description: "MTR",
+			DataType:    "string",
+		},
+		{
+			Tag:         "origem",
+			Label:       "Origem",
+			Description: "Origem",
+			DataType:    "string",
+		},
+		{
+			Tag:         "lacre",
+			Label:       "Lacre",
+			Description: "Lacre",
+			DataType:    "string",
+		},
+		{
+			Tag:         "lote",
+			Label:       "Lote",
+			Description: "Lote",
+			DataType:    "string",
+		},
+		{
+			Tag:         "veiculo",
+			Label:       "Veiculo",
+			Description: "Veiculo",
+			DataType:    "string",
+		},
+		{
+			Tag:         "motorista",
+			Label:       "Motorista",
+			Description: "Motorista",
+			DataType:    "string",
+		},
+		{
+			Tag:         "data_registro",
+			Label:       "Data de Registro de Entrada",
+			Description: "Data de Registro de Entrada",
+			DataType:    "datetime",
 		},
 		{
 			Tag:         "distancia_app",
@@ -92,9 +152,24 @@ var EditarSolicitacao = tx.Transaction{
 			DataType:    "number",
 		},
 		{
+			Tag:      "categoria_nome",
+			Label:    "Nome da Categoria",
+			DataType: "string",
+		},
+		{
+			Tag:      "tipo_nome",
+			Label:    "Nome do Tipo",
+			DataType: "string",
+		},
+		{
+			Tag:      "status",
+			Label:    "Status",
+			DataType: "string",
+		},
+		{
 			Tag:         "regra1_cliente_blockchain",
-			Label:       "Regra Data Solicitação Blockchain",
-			Description: "Se esta regra será utilizada ou não para: Data Solicitação",
+			Label:       "Regra Data Registro de Entrada Blockchain",
+			Description: "Se esta regra será utilizada ou não para: Data Registro",
 			DataType:    "boolean",
 			Required:    true,
 		},
@@ -171,22 +246,108 @@ var EditarSolicitacao = tx.Transaction{
 		},
 	},
 	Routine: func(stub shim.ChaincodeStubInterface, req map[string]interface{}) ([]byte, errors.ICCError) {
-		solicitacaoKey, ok := req["solicitacao"].(assets.Key)
+		id, ok := req["id"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter solicitacao")
+			return nil, errors.WrapError(nil, "missing parameter id")
 		}
-		categoria, hasCategoria := req["categoria"].(float64)
-		tipo, hasTipo := req["tipo"].(float64)
-		quantidade, hasQuantidade := req["quantidade"].(float64)
+		cod_entrada, ok := req["cod_entrada"].(float64)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter")
+		}
+		corporativo, ok := req["corporativo"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter")
+		}
+		entidade, ok := req["entidade"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter")
+		}
+		categoria, ok := req["categoria"].(float64)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter")
+		}
+
+		tipo, ok := req["tipo"].(float64)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing  argument tipo")
+		}
+
+		quantidade, ok := req["quantidade"].(float64)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+		unidade, ok := req["unidade"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		gerador, ok := req["gerador"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
 		transportadora, hasTransportadora := req["transportadora"].(float64)
-		observacao, hasObservacao := req["observacao"].(string)
-		dta_solicita, hasDataSolicitacao := req["dta_solicita"].(time.Time)
-		peso_real, hasPesoReal := req["peso_real"].(float64)
-		dta_recebimento, hasDataRecebimento := req["dta_recebimento"].(time.Time)
-		status, hasStatus := req["status"].(string)
+
+		destinatario, ok := req["destinatario"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		acondicionamento, ok := req["acondicionamento"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		mtr, ok := req["mtr"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		origem, ok := req["origem"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		lacre, ok := req["lacre"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		lote, ok := req["lote"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		veiculo, ok := req["veiculo"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		motorista, ok := req["motorista"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing parameter quantidade")
+		}
+
+		data_registro, ok := req["data_registro"].(time.Time)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing argument data de registro")
+		}
+
 		distancia_app, hasDistanciaApp := req["distancia_app"].(float64)
 		dias_evidencia_app, hasDiasEvidenciaApp := req["dias_evidencia_app"].(float64)
 
+		categoria_nome, ok := req["categoria_nome"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing argument categoria_nome")
+		}
+		tipo_nome, ok := req["tipo_nome"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing argument tipo_nome")
+		}
+		status, ok := req["status"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing argument status")
+		}
 		regra1_cliente_blockchain, ok := req["regra1_cliente_blockchain"].(bool)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing argument regra1_cliente_blockchain")
@@ -227,25 +388,12 @@ var EditarSolicitacao = tx.Transaction{
 		campo_saida := ""
 		campo_controle := false
 
-		solicitacaoAsset, err := solicitacaoKey.Get(stub)
-		if err != nil {
-			return nil, errors.WrapError(err, "failed to get solicitacao from the ledger")
-		}
-		solicitacao := (map[string]interface{})(*solicitacaoAsset)
-		if solicitacao["@assetType"].(string) != "solicitacao" {
-			return nil, errors.WrapError(err, "failed to get solicitacao from the ledger")
-		}
-
-		if solicitacao["@assetType"] != "solicitacao" {
-			return nil, errors.WrapError(err, "tipo do asset deve ser solicitacao")
-		}
-
 		if regra1_cliente_blockchain {
 			if !hasDataAtual {
 				return nil, errors.WrapError(nil, "Verificação de regra 1 exige o campo data_atual")
 			}
-			if dta_solicita.Before(data_atual) {
-				campo_saida += "Regra1:dta_solicitacao "
+			if data_registro.Before(data_atual) {
+				campo_saida += "Regra1:data_registro"
 				campo_controle = true
 			}
 		}
@@ -312,61 +460,62 @@ var EditarSolicitacao = tx.Transaction{
 			}
 		}
 
-		if hasCategoria {
-			solicitacao["categoria"] = categoria
-		}
-		if hasTipo {
-			solicitacao["tipo"] = tipo
-		}
-		if hasQuantidade {
-			solicitacao["quantidade"] = quantidade
-		}
+		entrada := make(map[string]interface{})
+		entrada["@assetType"] = "entradas"
+		entrada["id"] = id
+		entrada["categoria"] = categoria
+		entrada["tipo"] = tipo
+		entrada["quantidade"] = quantidade
 		if hasTransportadora {
-			solicitacao["transportadora"] = transportadora
+			entrada["transportadora"] = transportadora
 		}
-		if hasDataSolicitacao {
-			solicitacao["dta_solicita"] = dta_solicita.Format(time.RFC3339)
-		}
-		if hasPesoReal {
-			solicitacao["peso_real"] = peso_real
-		}
-		if hasObservacao {
-			solicitacao["observacao"] = observacao
-		}
-		if hasDataRecebimento {
-			solicitacao["dta_recebimento"] = dta_recebimento.Format(time.RFC3339)
-		}
-		if hasStatus {
-			solicitacao["status"] = status
-		}
+		entrada["data_registro"] = data_registro.Format(time.RFC3339)
+
 		if hasDistanciaApp {
-			solicitacao["distancia_app"] = distancia_app
+			entrada["distancia_app"] = distancia_app
 		}
 		if hasDiasEvidenciaApp {
-			solicitacao["dias_evidencia_app"] = dias_evidencia_app
+			entrada["dias_evidencia_app"] = dias_evidencia_app
 		}
 
-		solicitacao["campo_controle"] = campo_controle
-		solicitacao["campo_saida"] = campo_saida
+		entrada["cod_entrada"] = cod_entrada
+		entrada["corporativo"] = corporativo
+		entrada["entidade"] = entidade
+		entrada["unidade"] = unidade
+		entrada["gerador"] = gerador
+		entrada["destinatario"] = destinatario
+		entrada["acondicionamento"] = acondicionamento
+		entrada["mtr"] = mtr
+		entrada["origem"] = origem
+		entrada["lacre"] = lacre
+		entrada["lote"] = lote
+		entrada["veiculo"] = veiculo
+		entrada["motorista"] = motorista
+		entrada["categoria_nome"] = categoria_nome
+		entrada["tipo_nome"] = tipo_nome
+		entrada["status"] = status
 
-		solicitacaoJSON, nerr := json.Marshal(solicitacao)
+		entrada["campo_controle"] = campo_controle
+		entrada["campo_saida"] = campo_saida
+
+		entradaJSON, nerr := json.Marshal(entrada)
 		if nerr != nil {
 			return nil, errors.WrapError(nil, "failed to encode asset to JSON format")
 		}
 
-		solicitacaoEdit, err := assets.NewAsset(solicitacao)
+		entradaAsset, err := assets.NewAsset(entrada)
 
-		_, err = solicitacaoAsset.Put(stub)
+		_, err = entradaAsset.PutNew(stub)
 		if err != nil {
-			return nil, errors.WrapError(err, "Error saving solicitacao on blockchain")
+			return nil, errors.WrapError(err, "Error saving asset on blockchain")
 		}
 
 		// Marshal asset back to JSON format
-		solicitacaoJSON, nerr = json.Marshal(solicitacaoEdit)
+		entradaJSON, nerr = json.Marshal(entradaAsset)
 		if nerr != nil {
 			return nil, errors.WrapError(nil, "failed to encode asset to JSON format")
 		}
 
-		return solicitacaoJSON, nil
+		return entradaJSON, nil
 	},
 }
