@@ -24,12 +24,12 @@ var Saidas = assets.AssetType{
 		{
 			Tag:      "corporativo",
 			Label:    "Corporativo",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "entidade",
 			Label:    "Entidade Gerenciadora",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "categoria",
@@ -49,12 +49,12 @@ var Saidas = assets.AssetType{
 		{
 			Tag:      "unidade",
 			Label:    "Unidade",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "gerador",
 			Label:    "Gerador",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "transportadora",
@@ -64,12 +64,12 @@ var Saidas = assets.AssetType{
 		{
 			Tag:      "destinatario",
 			Label:    "Destinatario",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "acondicionamento",
 			Label:    "Acondicionamento",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "mtr",
@@ -79,7 +79,7 @@ var Saidas = assets.AssetType{
 		{
 			Tag:      "origem",
 			Label:    "Origem",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "lacre",
@@ -94,12 +94,12 @@ var Saidas = assets.AssetType{
 		{
 			Tag:      "veiculo",
 			Label:    "Veiculo",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "motorista",
 			Label:    "Motorista",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "data_registro",
@@ -115,6 +115,21 @@ var Saidas = assets.AssetType{
 			Tag:      "distancia_app",
 			Label:    "Distancia APP",
 			DataType: "number",
+		},
+		{
+			Tag:      "categoria_nome",
+			Label:    "Nome da Categoria",
+			DataType: "string",
+		},
+		{
+			Tag:      "tipo_nome",
+			Label:    "Nome do Tipo",
+			DataType: "string",
+		},
+		{
+			Tag:      "status",
+			Label:    "Status",
+			DataType: "string",
 		},
 		{
 			Tag:      "campo_saida",

@@ -37,14 +37,14 @@ var CriarEntrada = tx.Transaction{
 			Label:       "Corporativo",
 			Description: "Corporativo",
 			Required:    true,
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "entidade",
 			Label:       "Entidade Gerenciadora",
 			Description: "Entidade Gerenciadora",
 			Required:    true,
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "categoria",
@@ -77,25 +77,19 @@ var CriarEntrada = tx.Transaction{
 			Tag:         "unidade",
 			Label:       "Unidade",
 			Description: "Unidade",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "gerador",
 			Label:       "Gerador",
 			Description: "Gerador",
-			DataType:    "string",
-		},
-		{
-			Tag:         "destinatario",
-			Label:       "Destinatario",
-			Description: "Destinatario",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "acondicionamento",
 			Label:       "Acondicionamento",
 			Description: "Acondicionamento",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "mtr",
@@ -107,7 +101,7 @@ var CriarEntrada = tx.Transaction{
 			Tag:         "origem",
 			Label:       "Origem",
 			Description: "Origem",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "lacre",
@@ -119,18 +113,6 @@ var CriarEntrada = tx.Transaction{
 			Tag:         "lote",
 			Label:       "Lote",
 			Description: "Lote",
-			DataType:    "string",
-		},
-		{
-			Tag:         "veiculo",
-			Label:       "Veiculo",
-			Description: "Veiculo",
-			DataType:    "string",
-		},
-		{
-			Tag:         "motorista",
-			Label:       "Motorista",
-			Description: "Motorista",
 			DataType:    "string",
 		},
 		{
@@ -254,11 +236,11 @@ var CriarEntrada = tx.Transaction{
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter")
 		}
-		corporativo, ok := req["corporativo"].(string)
+		corporativo, ok := req["corporativo"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter")
 		}
-		entidade, ok := req["entidade"].(string)
+		entidade, ok := req["entidade"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter")
 		}
@@ -276,24 +258,19 @@ var CriarEntrada = tx.Transaction{
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
-		unidade, ok := req["unidade"].(string)
+		unidade, ok := req["unidade"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
 
-		gerador, ok := req["gerador"].(string)
+		gerador, ok := req["gerador"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
 
 		transportadora, hasTransportadora := req["transportadora"].(float64)
 
-		destinatario, ok := req["destinatario"].(string)
-		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
-		}
-
-		acondicionamento, ok := req["acondicionamento"].(string)
+		acondicionamento, ok := req["acondicionamento"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
@@ -303,7 +280,7 @@ var CriarEntrada = tx.Transaction{
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
 
-		origem, ok := req["origem"].(string)
+		origem, ok := req["origem"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
@@ -314,16 +291,6 @@ var CriarEntrada = tx.Transaction{
 		}
 
 		lote, ok := req["lote"].(string)
-		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
-		}
-
-		veiculo, ok := req["veiculo"].(string)
-		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
-		}
-
-		motorista, ok := req["motorista"].(string)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
@@ -483,14 +450,11 @@ var CriarEntrada = tx.Transaction{
 		entrada["entidade"] = entidade
 		entrada["unidade"] = unidade
 		entrada["gerador"] = gerador
-		entrada["destinatario"] = destinatario
 		entrada["acondicionamento"] = acondicionamento
 		entrada["mtr"] = mtr
 		entrada["origem"] = origem
 		entrada["lacre"] = lacre
 		entrada["lote"] = lote
-		entrada["veiculo"] = veiculo
-		entrada["motorista"] = motorista
 		entrada["categoria_nome"] = categoria_nome
 		entrada["tipo_nome"] = tipo_nome
 		entrada["status"] = status

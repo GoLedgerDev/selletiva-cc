@@ -37,14 +37,14 @@ var CriarSaida = tx.Transaction{
 			Label:       "Corporativo",
 			Description: "Corporativo",
 			Required:    true,
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "entidade",
 			Label:       "Entidade Gerenciadora",
 			Description: "Entidade Gerenciadora",
 			Required:    true,
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "categoria",
@@ -77,25 +77,25 @@ var CriarSaida = tx.Transaction{
 			Tag:         "unidade",
 			Label:       "Unidade",
 			Description: "Unidade",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "gerador",
 			Label:       "Gerador",
 			Description: "Gerador",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "destinatario",
 			Label:       "Destinatario",
 			Description: "Destinatario",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "acondicionamento",
 			Label:       "Acondicionamento",
 			Description: "Acondicionamento",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "mtr",
@@ -107,7 +107,7 @@ var CriarSaida = tx.Transaction{
 			Tag:         "origem",
 			Label:       "Origem",
 			Description: "Origem",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "lacre",
@@ -125,13 +125,13 @@ var CriarSaida = tx.Transaction{
 			Tag:         "veiculo",
 			Label:       "Veiculo",
 			Description: "Veiculo",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "motorista",
 			Label:       "Motorista",
 			Description: "Motorista",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "data_registro",
@@ -151,6 +151,21 @@ var CriarSaida = tx.Transaction{
 			Label:       "Dias da Evidencia",
 			Description: "Dias da Evidencia",
 			DataType:    "number",
+		},
+		{
+			Tag:      "categoria_nome",
+			Label:    "Nome da Categoria",
+			DataType: "string",
+		},
+		{
+			Tag:      "tipo_nome",
+			Label:    "Nome do Tipo",
+			DataType: "string",
+		},
+		{
+			Tag:      "status",
+			Label:    "Status",
+			DataType: "string",
 		},
 		{
 			Tag:         "regra1_cliente_blockchain",
@@ -240,11 +255,11 @@ var CriarSaida = tx.Transaction{
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter")
 		}
-		corporativo, ok := req["corporativo"].(string)
+		corporativo, ok := req["corporativo"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter")
 		}
-		entidade, ok := req["entidade"].(string)
+		entidade, ok := req["entidade"].(float64)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter")
 		}
@@ -262,41 +277,41 @@ var CriarSaida = tx.Transaction{
 		if !ok {
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
-		unidade, ok := req["unidade"].(string)
+		unidade, ok := req["unidade"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter unidade")
 		}
 
-		gerador, ok := req["gerador"].(string)
+		gerador, ok := req["gerador"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter gerador")
 		}
 
 		transportadora, hasTransportadora := req["transportadora"].(float64)
 
-		destinatario, ok := req["destinatario"].(string)
+		destinatario, ok := req["destinatario"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter destinatario")
 		}
 
-		acondicionamento, ok := req["acondicionamento"].(string)
+		acondicionamento, ok := req["acondicionamento"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter acondicionamento")
 		}
 
 		mtr, ok := req["mtr"].(string)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter mtr")
 		}
 
-		origem, ok := req["origem"].(string)
+		origem, ok := req["origem"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter origem")
 		}
 
 		lacre, ok := req["lacre"].(string)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter lacre")
 		}
 
 		lote, ok := req["lote"].(string)
@@ -304,19 +319,32 @@ var CriarSaida = tx.Transaction{
 			return nil, errors.WrapError(nil, "missing parameter quantidade")
 		}
 
-		veiculo, ok := req["veiculo"].(string)
+		veiculo, ok := req["veiculo"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter lote")
 		}
 
-		motorista, ok := req["motorista"].(string)
+		motorista, ok := req["motorista"].(float64)
 		if !ok {
-			return nil, errors.WrapError(nil, "missing parameter quantidade")
+			return nil, errors.WrapError(nil, "missing parameter motorista")
 		}
 
 		data_registro, ok := req["data_registro"].(time.Time)
 		if !ok {
 			return nil, errors.WrapError(nil, "missing argument data de registro de saída")
+		}
+
+		categoria_nome, ok := req["categoria_nome"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing argument categoria_nome")
+		}
+		tipo_nome, ok := req["tipo_nome"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing argument tipo_nome")
+		}
+		status, ok := req["status"].(string)
+		if !ok {
+			return nil, errors.WrapError(nil, "missing argument status")
 		}
 
 		distancia_app, hasDistanciaApp := req["distancia_app"].(float64)
@@ -465,6 +493,9 @@ var CriarSaida = tx.Transaction{
 		saida["lote"] = lote
 		saida["veiculo"] = veiculo
 		saida["motorista"] = motorista
+		saida["categoria_nome"] = categoria_nome
+		saida["tipo_nome"] = tipo_nome
+		saida["status"] = status
 
 		saida["campo_controle"] = campo_controle
 		saida["campo_saida"] = campo_saida

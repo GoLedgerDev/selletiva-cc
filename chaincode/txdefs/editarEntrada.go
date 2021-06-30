@@ -35,13 +35,13 @@ var EditarEntrada = tx.Transaction{
 			Tag:         "corporativo",
 			Label:       "Corporativo",
 			Description: "Corporativo",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "entidade",
 			Label:       "Entidade Gerenciadora",
 			Description: "Entidade Gerenciadora",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "categoria",
@@ -71,25 +71,19 @@ var EditarEntrada = tx.Transaction{
 			Tag:         "unidade",
 			Label:       "Unidade",
 			Description: "Unidade",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "gerador",
 			Label:       "Gerador",
 			Description: "Gerador",
-			DataType:    "string",
-		},
-		{
-			Tag:         "destinatario",
-			Label:       "Destinatario",
-			Description: "Destinatario",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "acondicionamento",
 			Label:       "Acondicionamento",
 			Description: "Acondicionamento",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "mtr",
@@ -101,7 +95,7 @@ var EditarEntrada = tx.Transaction{
 			Tag:         "origem",
 			Label:       "Origem",
 			Description: "Origem",
-			DataType:    "string",
+			DataType:    "number",
 		},
 		{
 			Tag:         "lacre",
@@ -113,18 +107,6 @@ var EditarEntrada = tx.Transaction{
 			Tag:         "lote",
 			Label:       "Lote",
 			Description: "Lote",
-			DataType:    "string",
-		},
-		{
-			Tag:         "veiculo",
-			Label:       "Veiculo",
-			Description: "Veiculo",
-			DataType:    "string",
-		},
-		{
-			Tag:         "motorista",
-			Label:       "Motorista",
-			Description: "Motorista",
 			DataType:    "string",
 		},
 		{
@@ -146,22 +128,19 @@ var EditarEntrada = tx.Transaction{
 			DataType:    "number",
 		},
 		{
-			Tag:         "categoria_nome",
-			Label:       "Nome da Categoria",
-			Description: "Nome da Categoria",
-			DataType:    "string",
+			Tag:      "categoria_nome",
+			Label:    "Nome da Categoria",
+			DataType: "string",
 		},
 		{
-			Tag:         "tipo_nome",
-			Label:       "Nome do Tipo",
-			Description: "Nome do Tipo",
-			DataType:    "string",
+			Tag:      "tipo_nome",
+			Label:    "Nome do Tipo",
+			DataType: "string",
 		},
 		{
-			Tag:         "status",
-			Label:       "Status",
-			Description: "Status",
-			DataType:    "string",
+			Tag:      "status",
+			Label:    "Status",
+			DataType: "string",
 		},
 		{
 			Tag:         "regra1_cliente_blockchain",
@@ -248,22 +227,21 @@ var EditarEntrada = tx.Transaction{
 			return nil, errors.WrapError(nil, "missing parameter entrada")
 		}
 		cod_entrada, hasCodEntrada := req["cod_entrada"].(float64)
-		corporativo, hasCorporativo := req["corporativo"].(string)
-		entidade, hasEntidade := req["entidade"].(string)
+		corporativo, hasCorporativo := req["corporativo"].(float64)
+		entidade, hasEntidade := req["entidade"].(float64)
 		categoria, hasCategoria := req["categoria"].(float64)
 		tipo, hasTipo := req["tipo"].(float64)
 		quantidade, hasQuantidade := req["quantidade"].(float64)
-		unidade, hasUnidade := req["unidade"].(string)
-		gerador, hasGerador := req["gerador"].(string)
+		unidade, hasUnidade := req["unidade"].(float64)
+		gerador, hasGerador := req["gerador"].(float64)
 		transportadora, hasTransportadora := req["transportadora"].(float64)
-		destinatario, hasDestinatario := req["destinatario"].(string)
-		acondicionamento, hasACondicionamento := req["acondicionamento"].(string)
+		acondicionamento, hasACondicionamento := req["acondicionamento"].(float64)
 		mtr, hasMtr := req["mtr"].(string)
-		origem, hasOrigem := req["origem"].(string)
+		origem, hasOrigem := req["origem"].(float64)
 		lacre, hasLacre := req["lacre"].(string)
 		lote, hasLote := req["lote"].(string)
-		veiculo, hasVeiculo := req["veiculo"].(string)
-		motorista, hasMotorista := req["motorista"].(string)
+		veiculo, hasVeiculo := req["veiculo"].(float64)
+		motorista, hasMotorista := req["motorista"].(float64)
 		data_registro, hasDataRegistro := req["data_registro"].(time.Time)
 		distancia_app, hasDistanciaApp := req["distancia_app"].(float64)
 		dias_evidencia_app, hasDiasEvidenciaApp := req["dias_evidencia_app"].(float64)
@@ -432,10 +410,6 @@ var EditarEntrada = tx.Transaction{
 
 		if hasGerador {
 			entrada["gerador"] = gerador
-		}
-
-		if hasDestinatario {
-			entrada["destinatario"] = destinatario
 		}
 
 		if hasACondicionamento {

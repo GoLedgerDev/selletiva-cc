@@ -24,12 +24,12 @@ var Entradas = assets.AssetType{
 		{
 			Tag:      "corporativo",
 			Label:    "Corporativo",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "entidade",
 			Label:    "Entidade Gerenciadora",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "categoria",
@@ -49,12 +49,12 @@ var Entradas = assets.AssetType{
 		{
 			Tag:      "unidade",
 			Label:    "Unidade",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "gerador",
 			Label:    "Gerador",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "transportadora",
@@ -62,14 +62,9 @@ var Entradas = assets.AssetType{
 			DataType: "number",
 		},
 		{
-			Tag:      "destinatario",
-			Label:    "Destinatario",
-			DataType: "string",
-		},
-		{
 			Tag:      "acondicionamento",
 			Label:    "Acondicionamento",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "mtr",
@@ -79,7 +74,7 @@ var Entradas = assets.AssetType{
 		{
 			Tag:      "origem",
 			Label:    "Origem",
-			DataType: "string",
+			DataType: "number",
 		},
 		{
 			Tag:      "lacre",
@@ -89,16 +84,6 @@ var Entradas = assets.AssetType{
 		{
 			Tag:      "lote",
 			Label:    "Lote",
-			DataType: "string",
-		},
-		{
-			Tag:      "veiculo",
-			Label:    "Veiculo",
-			DataType: "string",
-		},
-		{
-			Tag:      "motorista",
-			Label:    "Motorista",
 			DataType: "string",
 		},
 		{
