@@ -9,7 +9,6 @@ services:
     image: node:carbon
     ports:
       - 8PORT:PORT
-      - PORT:PORT
     command: bash -c 'npm start; sleep infinity'
     volumes:
       - ./:/rest-server

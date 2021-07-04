@@ -16,9 +16,6 @@ CMD="peer channel fetch config ./addorg-artifacts/bootstrap-block.pb -o $ORDERER
 docker exec cli $CMD
 configtxlator proto_decode --input bootstrap-block.pb  --type common.Block > bootstrap-block.json
 
-docker-compose -f ../docker-compose-org2.yaml down
-docker-compose -f ../docker-compose-org2.yaml up -d
-
 # Wait for sys RAFT leader to be elected
 echo "Waiting for sys RAFT to stabilize"
 sleep 15

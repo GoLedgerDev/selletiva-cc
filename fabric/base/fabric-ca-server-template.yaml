@@ -208,8 +208,6 @@ affiliations:
   org1:
     - department1
     - department2
-  org2:
-    - department1
 
 #############################################################################
 #  Signing section

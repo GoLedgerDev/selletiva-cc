@@ -1,4 +1,7 @@
 node_modules
+fabric/chaincode
+fabric/crypto-config
+fabric/channel-artifacts
 
 chaincode/vendor/*
 rest-server/data/*

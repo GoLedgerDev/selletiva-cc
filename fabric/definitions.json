@@ -17,18 +17,6 @@
                     "name": "member",
                     "mspId": "org1MSP"
                   }
-                },
-                {
-                  "role": {
-                    "name": "member",
-                    "mspId": "org2MSP"
-                  }
-                },
-                {
-                  "role": {
-                    "name": "member",
-                    "mspId": "org3MSP"
-                  }
                 }
               ],
               "policy": {
@@ -69,52 +57,6 @@
         },
         "ca": {
           "host": "ca.org1.example.com",
-          "user": "admin",
-          "passwd": "adminpw"
-        }
-      },
-      {
-        "orgName": "org2",
-        "orgDomainName": "example.com",
-        "restHost": "api.org2.example.com",
-        "ccRestHost": ["ccapi.org2.example.com"],
-        "peers": {
-          "peer0.org2.example.com": {
-            "host": "peer0.org2.example.com",
-            "chaincodeQuery": true,
-            "endorsingPeer": true,
-            "eventSource": true,
-            "ledgerQuery": true
-          }
-        },
-        "orderers": {
-          "orderer0.org2.example.com": "orderer0.org2.example.com"
-        },
-        "ca": {
-          "host": "ca.org2.example.com",
-          "user": "admin",
-          "passwd": "adminpw"
-        }
-      },
-      {
-        "orgName": "org3",
-        "orgDomainName": "example.com",
-        "restHost": "api.org3.example.com",
-        "ccRestHost": ["ccapi.org3.example.com"],
-        "peers": {
-          "peer0.org3.example.com": {
-            "host": "peer0.org3.example.com",
-            "chaincodeQuery": true,
-            "endorsingPeer": true,
-            "eventSource": true,
-            "ledgerQuery": true
-          }
-        },
-        "orderers": {
-          "orderer0.org3.example.com": "orderer0.org3.example.com"
-        },
-        "ca": {
-          "host": "ca.org3.example.com",
           "user": "admin",
           "passwd": "adminpw"
         }

@@ -1,8 +1,8 @@
 #! /bin/bash
 
 ### @generateCerts
-## This will generate certificates both for orderer and org1/org2 certs
-## orderer.example.com, org1.example.com, org2.example.com are hard-coded
+## This will generate certificates both for orderer and org1 certs
+## orderer.example.com, org1.example.com are hard-coded
 ## (this is a development script and should not be used for production purpose)
 ## all called scripts are under same this same folder called scripts but these
 ## are called inside proper dockers
@@ -10,7 +10,7 @@ generateCerts() {
     docker-compose -f docker-compose-ca.yaml stop && yes | docker-compose -f docker-compose-ca.yaml rm
     docker-compose -f docker-compose-ca.yaml up -d
     sleep 5
-    local orgs=('org1.example.com' 'org2.example.com' 'org3.example.com')
+    local orgs=('org1.example.com')
     local SCRIPTS_FOLDER="/etc/hyperledger/fabric-ca-server/scripts"
 
     for ORG in ${orgs[@]}; do
