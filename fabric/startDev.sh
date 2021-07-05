@@ -119,7 +119,7 @@ start_network() {
                   }
               ],
               \"policy\": {
-                  \"2-of\": [
+                  \"1-of\": [
                       {
                           \"signed-by\": 0
                       }
